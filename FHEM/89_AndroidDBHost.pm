@@ -483,7 +483,7 @@ sub GetDeviceList ($)
 
 	my %devState = ();
 	my @devices = $result =~ /([a-zA-Z0-9]+:[0-9]+\s+[a-zA-Z0-9]+)|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}:[0-9]+\s+[a-zA-Z0-9]+)/g;
-	@devices = grep { $_ ne '' } @devices;
+	@devices = grep { defined $_ && $_ ne '' } @devices;
 	foreach my $d (@devices) {
 		my ($address, $state) = split /\s+/, $d;
 		$devState{$address} = $state // 'disconnected';
